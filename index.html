@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="公司內部點餐工具 - 快速方便的團體訂餐系統" />
+  <title>公司內部點餐工具</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+
+  <!-- 自訂樣式 -->
+  <link rel="stylesheet" href="all.css" />
+</head>
+<body>
+
+  <!-- ========================================
+       登入區塊：未登入時顯示
+  ======================================== -->
+  <section id="login-section">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="material-icons-round logo-icon">restaurant</span>
+      </div>
+      <h1 class="login-title">公司內部點餐工具</h1>
+      <p class="login-subtitle">使用 Google 帳號登入以開始點餐</p>
+      <button id="btn-google-login" class="btn-google" onclick="handleGoogleLogin()">
+        <svg class="google-svg" viewBox="0 0 48 48" width="24" height="24">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span>使用 Google 帳號登入</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========================================
+       主介面：登入後顯示
+  ======================================== -->
+  <section id="main-section" class="hidden">
+
+    <!-- 頂部導覽列 -->
+    <header id="app-header">
+      <div class="header-inner">
+        <div class="header-left">
+          <span class="material-icons-round header-logo">restaurant</span>
+          <span class="header-title">點餐工具</span>
+        </div>
+        <div class="header-right">
+          <span id="user-display-name" class="user-name"></span>
+          <button id="btn-logout" class="btn-icon" onclick="handleLogout()" title="登出">
+            <span class="material-icons-round">logout</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 導覽分頁 -->
+    <nav id="tab-nav">
+      <button class="tab-btn active" data-tab="order" onclick="switchTab('order')">
+        <span class="material-icons-round">menu_book</span>
+        <span>點餐</span>
+      </button>
+      <button class="tab-btn" data-tab="summary" onclick="switchTab('summary')">
+        <span class="material-icons-round">receipt_long</span>
+        <span>訂單</span>
+      </button>
+      <button class="tab-btn" data-tab="admin" id="tab-admin-btn" onclick="switchTab('admin')" style="display:none;">
+        <span class="material-icons-round">admin_panel_settings</span>
+        <span>管理</span>
+      </button>
+    </nav>
+
+    <!-- 主內容容器 -->
+    <main id="content-area">
+
+      <!-- ===== 分頁 1：點餐區 ===== -->
+      <div id="tab-order" class="tab-panel active">
+        <!-- 今日餐廳指示 -->
+        <div id="today-restaurants-banner" class="info-banner">
+          <span class="material-icons-round">storefront</span>
+          <span id="today-restaurants-text">載入中...</span>
+        </div>
+
+        <!-- 餐廳篩選按鈕群 -->
+        <div id="restaurant-filter" class="filter-bar"></div>
+
+        <!-- 分類標籤 -->
+        <div id="category-filter" class="category-bar"></div>
+
+        <!-- 餐點卡片列表 -->
+        <div id="menu-list" class="menu-grid">
+          <div class="loading-placeholder">
+            <span class="material-icons-round spin">autorenew</span>
+            <p>正在載入菜單...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 分頁 2：訂單確認區 ===== -->
+      <div id="tab-summary" class="tab-panel">
+        <div class="section-header">
+          <h2>今日訂單總覽</h2>
+          <button class="btn-outline" onclick="loadTodayOrders()">
+            <span class="material-icons-round">refresh</span> 重新整理
+          </button>
+        </div>
+        <div id="order-summary-list" class="order-list">
+          <div class="loading-placeholder">
+            <span class="material-icons-round spin">autorenew</span>
+            <p>正在載入訂單...</p>
+          </div>
+        </div>
+        <div id="order-summary-actions" class="summary-actions hidden">
+          <button class="btn-primary btn-copy" onclick="copyOrdersToClipboard()">
+            <span class="material-icons-round">content_copy</span> 一鍵複製訂單
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== 分頁 3：管理員專區 ===== -->
+      <div id="tab-admin" class="tab-panel">
+        <!-- 設定今日餐廳 -->
+        <div class="admin-card">
+          <h3><span class="material-icons-round">settings</span> 設定今日開放餐廳</h3>
+          <p class="admin-desc">從菜單中選擇今天要開放的餐廳（可複選）</p>
+          <div id="admin-restaurant-checkboxes" class="checkbox-group"></div>
+          <button class="btn-primary" onclick="saveTodayConfig()">
+            <span class="material-icons-round">save</span> 儲存設定
+          </button>
+        </div>
+
+        <!-- 清空今日點餐 -->
+        <div class="admin-card admin-danger">
+          <h3><span class="material-icons-round">warning</span> 危險操作</h3>
+          <p class="admin-desc">清空 Orders 工作表中除了標題列以外的所有訂單資料，此操作不可復原。</p>
+          <button class="btn-danger" onclick="confirmClearOrders()">
+            <span class="material-icons-round">delete_forever</span> 清空今日點餐
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ========================================
+       未授權提示區塊
+  ======================================== -->
+  <section id="unauthorized-section" class="hidden">
+    <div class="login-card">
+      <span class="material-icons-round unauthorized-icon">block</span>
+      <h2>未獲授權</h2>
+      <p>您的帳號不在授權名單中，請聯繫管理員。</p>
+      <button class="btn-outline" onclick="handleLogout()">返回登入頁</button>
+    </div>
+  </section>
+
+  <!-- ========================================
+       Toast 通知元件
+  ======================================== -->
+  <div id="toast-container"></div>
+
+  <!-- ========================================
+       Modal 對話框（確認用）
+  ======================================== -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 id="modal-title">確認操作</h3>
+      <p id="modal-message">確定要執行此操作嗎？</p>
+      <div class="modal-actions">
+        <button class="btn-outline" onclick="closeModal()">取消</button>
+        <button id="modal-confirm-btn" class="btn-danger" onclick="">確認</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Identity Services (GSI) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Google API Client Library -->
+  <script src="https://apis.google.com/js/api.js" async defer></script>
+  <!-- 應用程式邏輯 -->
+  <script src="all.js"></script>
+
+</body>
+</html>
