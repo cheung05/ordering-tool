@@ -3,49 +3,49 @@
    使用 CSS 自訂屬性 (CSS Variables)，方便統一調整
    ============================================ */
 
-/* ── 設計 Token ── */
+/* ── 設計 Token（參考金黃色 Dashboard 風格） ── */
 :root {
-  /* 主色系 - 暖橘色調 */
-  --color-primary: #FF6B35;
-  --color-primary-light: #FF8A5C;
-  --color-primary-dark: #E55A2B;
-  --color-primary-bg: rgba(255, 107, 53, 0.08);
-  --color-primary-bg-hover: rgba(255, 107, 53, 0.14);
+  /* 主色系 - 金黃色調 */
+  --color-primary: #E5A91B;
+  --color-primary-light: #F5C842;
+  --color-primary-dark: #D49A0E;
+  --color-primary-bg: rgba(229, 169, 27, 0.08);
+  --color-primary-bg-hover: rgba(229, 169, 27, 0.14);
 
   /* 輔助色 */
-  --color-accent: #2EC4B6;
-  --color-accent-light: #4DD9CC;
-  --color-accent-bg: rgba(46, 196, 182, 0.1);
+  --color-accent: #E5A91B;
+  --color-accent-light: #F5C842;
+  --color-accent-bg: rgba(229, 169, 27, 0.10);
 
   /* 中性色 */
-  --color-bg: #F5F5F7;
+  --color-bg: #F2F2F2;
   --color-surface: #FFFFFF;
   --color-surface-hover: #FAFAFA;
-  --color-border: #E5E5EA;
-  --color-border-light: #F0F0F5;
-  --color-text-primary: #1D1D1F;
-  --color-text-secondary: #6E6E73;
-  --color-text-tertiary: #AEAEB2;
+  --color-border: #E8E8E8;
+  --color-border-light: #F0F0F0;
+  --color-text-primary: #2C2C2C;
+  --color-text-secondary: #7A7A7A;
+  --color-text-tertiary: #B0B0B0;
 
   /* 危險/警告 */
-  --color-danger: #FF3B30;
-  --color-danger-light: #FF6961;
-  --color-danger-bg: rgba(255, 59, 48, 0.08);
+  --color-danger: #E54D42;
+  --color-danger-light: #F06B62;
+  --color-danger-bg: rgba(229, 77, 66, 0.08);
 
   /* 成功 */
-  --color-success: #34C759;
-  --color-success-bg: rgba(52, 199, 89, 0.1);
+  --color-success: #4CAF50;
+  --color-success-bg: rgba(76, 175, 80, 0.1);
 
   /* 陰影 */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
-  --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.10);
 
   /* 圓角 */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
   --radius-xl: 24px;
   --radius-full: 9999px;
 
@@ -142,8 +142,8 @@ h1, h2, h3, h4 {
   min-height: 100dvh;
   padding: 24px;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(255, 107, 53, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(46, 196, 182, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(229, 169, 27, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(229, 169, 27, 0.06) 0%, transparent 50%),
     var(--color-bg);
 }
 
@@ -167,7 +167,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 8px 24px rgba(229, 169, 27, 0.3);
 }
 
 .logo-icon {
@@ -238,10 +238,8 @@ h1, h2, h3, h4 {
   left: 0;
   right: 0;
   height: var(--header-height);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--color-border-light);
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--color-border);
   z-index: 100;
 }
 
@@ -311,10 +309,8 @@ h1, h2, h3, h4 {
   left: 0;
   right: 0;
   height: var(--tab-nav-height);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-top: 1px solid var(--color-border-light);
+  background: #FFFFFF;
+  border-top: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -387,8 +383,9 @@ h1, h2, h3, h4 {
   align-items: center;
   gap: 10px;
   padding: 14px 18px;
-  background: var(--color-primary-bg);
+  background: rgba(229, 169, 27, 0.06);
   border-radius: var(--radius-md);
+  border: 1px solid rgba(229, 169, 27, 0.15);
   color: var(--color-primary-dark);
   font-weight: 500;
   font-size: var(--font-size-sm);
@@ -440,7 +437,7 @@ h1, h2, h3, h4 {
   background: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+  box-shadow: none;
 }
 
 
@@ -526,12 +523,13 @@ h1, h2, h3, h4 {
 .menu-card-category {
   display: inline-block;
   font-size: var(--font-size-xs);
-  color: var(--color-accent);
-  background: var(--color-accent-bg);
-  padding: 3px 10px;
+  color: #fff;
+  background: var(--color-primary);
+  padding: 4px 12px;
   border-radius: var(--radius-full);
   margin-bottom: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .menu-card-restaurant {
@@ -559,10 +557,11 @@ h1, h2, h3, h4 {
 
 .btn-order {
   flex-shrink: 0;
-  padding: 10px 20px;
-  border-radius: var(--radius-sm);
-  background: var(--color-primary);
-  color: #fff;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-primary-dark);
+  border: 2px solid var(--color-primary);
   font-weight: 600;
   font-size: var(--font-size-sm);
   transition: all var(--transition-fast);
@@ -572,8 +571,9 @@ h1, h2, h3, h4 {
 }
 
 .btn-order:hover {
-  background: var(--color-primary-dark);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(229, 169, 27, 0.3);
   transform: translateY(-1px);
 }
 
@@ -767,7 +767,7 @@ h1, h2, h3, h4 {
 
 .btn-primary:hover {
   background: var(--color-primary-dark);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 12px rgba(229, 169, 27, 0.3);
   transform: translateY(-1px);
 }
 
@@ -810,7 +810,7 @@ h1, h2, h3, h4 {
 
 .btn-danger:hover {
   background: var(--color-danger-light);
-  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
+  box-shadow: 0 4px 12px rgba(229, 77, 66, 0.3);
 }
 
 .btn-copy {
