@@ -79,10 +79,16 @@ const $modalConfirmBtn = () => document.getElementById('modal-confirm-btn');
  */
 function gapiInit() {
   gapi.load('client', async () => {
-    await gapi.client.init({
-      discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-    });
-    gapiLoaded = true;
+    try {
+      await gapi.client.init({
+        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+      });
+      gapiLoaded = true;
+      console.log('[初始化] gapi client 已載入');
+      checkAllLoaded();
+    } catch (e) {
+      console.error('[gapi 初始化失敗]', e);
+    }
     console.log('[初始化] gapi client 已載入');
     checkAllLoaded();
   });
@@ -155,6 +161,11 @@ async function handleTokenResponse(resp) {
   if (resp.error) {
     console.error('[登入] Token 錯誤:', resp);
     showToast('登入失敗，請再試一次', 'error');
+    return;
+  }
+
+  if (!google.accounts.oauth2.hasGrantedAnyScope(resp, 'https://www.googleapis.com/auth/spreadsheets')) {
+    showToast('登入失敗：您沒有授權「試算表權限」，請重新點擊登入並務必在畫面上打勾！', 'error');
     return;
   }
 
@@ -254,8 +265,18 @@ async function checkUserRole(email) {
     showToast(`歡迎回來，${currentUser.name}！`, 'success');
 
   } catch (err) {
-    console.error('[身分驗證] 讀取 Users 表失敗:', err);
-    showToast('讀取使用者資料失敗，請檢查試算表權限', 'error');
+    if (err.result && err.result.error) {
+      const msg = err.result.error.message;
+      if (msg.includes('PERMISSION_DENIED')) {
+        showToast('您沒有權限存取這個試算表，請聯絡擁有者開放權限。', 'error');
+      } else if (msg.includes('NOT_FOUND')) {
+        showToast('找不到該試算表 (ID錯誤或已被刪除)。', 'error');
+      } else {
+        showToast(`讀取失敗: ${msg}`, 'error');
+      }
+    } else {
+      showToast(`讀取使用者資料失敗: ${err.message || err}`, 'error');
+    }
   }
 }
 
