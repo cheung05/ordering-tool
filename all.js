@@ -12,7 +12,6 @@
 // ─────────────────────────────────────────────
 const CLIENT_ID = '66868160153-7ehvpp3akn4412gdv2rrc6f2g9oj2pur.apps.googleusercontent.com';
 const SPREADSHEET_ID = '1oHZeCYwX71MsrfYLhEkTpR8Ifoj-umBDShRRmkbQnP0';
-
 // Google Sheets API 需要的 OAuth Scope
 const SCOPES = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
 
