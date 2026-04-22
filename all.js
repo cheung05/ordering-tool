@@ -974,7 +974,7 @@ async function import50LanMenu(btn) {
   const btnOriginalText = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = '<span class="material-icons-round spin">autorenew</span>';
-  
+
   const data = [
     ["五十嵐", "茉莉綠茶(M)", 35, "找好茶"],
     ["五十嵐", "茉莉綠茶(L)", 40, "找好茶"],
@@ -1087,7 +1087,7 @@ async function import50LanMenu(btn) {
     ["五十嵐", "荔枝烏龍(M)", 50, "找冰淇淋"],
     ["五十嵐", "荔枝烏龍(L)", 60, "找冰淇淋"]
   ];
-  
+
   try {
     await gapi.client.sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
@@ -1105,7 +1105,7 @@ async function import50LanMenu(btn) {
   } finally {
     btn.disabled = false;
     btn.innerHTML = btnOriginalText;
-    
+
     // 重新載入菜單
     loadMenuAndConfig();
   }
